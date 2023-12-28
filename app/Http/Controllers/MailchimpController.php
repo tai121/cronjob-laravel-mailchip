@@ -16,7 +16,7 @@ class MailchimpController extends Controller
                 'subject_line' => 'Your Line',
                 'from_name' => 'Your Name',
                 'reply_to' => 'phamductaidtsomuch@gmail.com',
-                'template_id'=>10030054,
+                'template_id'=>10030042,
             ],
         ];
 
@@ -29,5 +29,15 @@ class MailchimpController extends Controller
 
         $sendResult = $MailChimp->post("campaigns/{$campaignId}/actions/send");
         return $sendResult;
+    }
+    public function addSubcribe(){
+        $apiKey = env("MAILCHIMP_API_KEY");
+        $MailChimp = new MailChimp($apiKey);
+        $list_id =env("MAILCHIMP_LIST_ID");
+        $result = $MailChimp->post("lists/$list_id/members", [
+            'email_address' => 'lehieunghia2402@gmail.com',
+            'status'        => 'subscribed',
+        ]);
+        print_r($result);
     }
 }
